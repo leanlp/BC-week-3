@@ -5,8 +5,8 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { Console } from "console";
 dotenv.config()
 
-const TOKENCONT = "0x3a4a8459f38e131fa5071a3e0444e64313f7343e"
-// const TOKENCONT2 = "0x5b82aee78a1e7e02144e0782a1ab7f59e7a9ef6e"
+const TOKENCONT = "0x06157A790bC1b3f4f337859686C32F0123084331"
+// const TOKENCONT2 = ""
 
 const WWallet = "0x6f6eb030334642D3D1527B3D1b05fb08C16852d5"
 const WWallet4 = "0x2924a6C59115299A5945cA1dF6D73ABA526C97bd"
@@ -24,17 +24,19 @@ const BLOCKNUMBER = provider._getFastBlockNumber()
 const BN = await BLOCKNUMBER
 
 const ballotContractFactory = new TokenizedBallot__factory(signer);
-const ballotContract = await ballotContractFactory.deploy(
-  convertStringArrayToBytes32(PROPOSALS),
-  TOKENCONT,
-  (BN -1) 
-);
-await ballotContract.deployed()
+// const ballotContract = await ballotContractFactory.deploy(
+//   convertStringArrayToBytes32(PROPOSALS),
+//   TOKENCONT,
+//   (BN -1) 
+// );
+const ballotContract = ballotContractFactory.attach(TOKENCONT)
+// await ballotContract.deployed()
+const voteee = await ballotContract.vote(3, 88888888888)
+await voteee.wait()
 
 const MINT_VALUE = ethers.utils.parseEther("10");
 
-// const minttt = await ballotContract.mint(WWallet, 10**10)
-// await minttt.wait()
+
 
 
 
@@ -46,19 +48,19 @@ console.log(`this address has balance of ${balance2}`)
 
 
 
-function convertStringArrayToBytes32(array: string[]) {
-  const bytes32Array = [];
-  for (let index = 0; index < array.length; index++) {
-    bytes32Array.push(ethers.utils.formatBytes32String(array[index]));
-  }
-  return bytes32Array;
-}
-for (let index = 0; index < PROPOSALS.length; index++) {
-  const proposal = await ballotContract.proposals(index);
+// function convertStringArrayToBytes32(array: string[]) {
+//   const bytes32Array = [];
+//   for (let index = 0; index < array.length; index++) {
+//     bytes32Array.push(ethers.utils.formatBytes32String(array[index]));
+//   }
+//   return bytes32Array;
+// }
+// for (let index = 0; index < PROPOSALS.length; index++) {
+//   const proposal = await ballotContract.proposals(index);
   
-  console.log(ethers.utils.parseBytes32String(proposal.name));
+//   console.log(ethers.utils.parseBytes32String(proposal.name));
 
-}
+// }
 
 
 }

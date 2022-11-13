@@ -29,24 +29,28 @@ const MyTokenERC20Contract = await MyTokenERC20ContractFactory.attach(TOKENCONT)
 
 const MINT_VALUE = ethers.utils.parseEther("10");
 
-const minttt = await MyTokenERC20Contract.mint(WWallet4, 11**10)
-const event = MyTokenERC20Contract.emit("Transfer")
-await minttt.wait()
+// const minttt = await MyTokenERC20Contract.mint(WWallet, 11**10)
+// const event = MyTokenERC20Contract.emit("Transfer")
+// await minttt.wait()
 
 
-const votp = await MyTokenERC20Contract.getPastVotes(WWallet4, 7946593)
+const votp = await MyTokenERC20Contract.getPastVotes(WWallet4, 7946950)
 const votp2 = await ethers.utils.formatEther(votp)
-console.log(votp2)
+console.log(`${votp2} past votes at block`)
 
 const vot = await MyTokenERC20Contract.getVotes(WWallet4);
 const vot2 =  ethers.utils.formatEther(vot)
-const vot3 = await ethers.utils.formatUnits(vot)
-console.log(vot2)
+// const vot3 = await ethers.utils.formatUnits(vot)
+console.log(`votes totals ${vot2}`)
 // console.log(vot3)
 
 const balancecon = await MyTokenERC20Contract.balanceOf(WWallet4)
 const balancecon2 = await ethers.utils.formatEther(balancecon)
-console.log(balancecon2)
+console.log(`${balancecon2} balance of wallet owner`)
+
+const balanceco = await MyTokenERC20Contract.balanceOf(WWallet4)
+const balanceco2 = await ethers.utils.formatEther(balanceco)
+console.log(`${balanceco2} balance of wallet `)
 
 
 
@@ -55,8 +59,11 @@ const BN = await BLOCKNUMBER
 console.log(`${BN}`)
 
 //delegate
-// const min = await MyTokenERC20Contract.delegate(WWallet)
+// const min = await MyTokenERC20Contract.delegate(WWallet4)
 // await min.wait();
+// const txhash = min.blockHash
+
+// console.log(txhash)
 
 //Mint some tokens
 // const mintTx = await contract.connect(accounts[0]).mint(accounts[1].address, MINT_VALUE); //accounts[0] not need write it is defauld
