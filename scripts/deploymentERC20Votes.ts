@@ -3,6 +3,7 @@ import { MyToken__factory } from "../typechain-types";
 import * as dotenv from "dotenv";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { Console } from "console";
+import { _toUtf8String } from "@ethersproject/strings/lib/utf8";
 dotenv.config()
 
 const TOKENCONT = "0x3a4a8459f38e131fa5071a3e0444e64313f7343e"
@@ -28,18 +29,25 @@ const MyTokenERC20Contract = await MyTokenERC20ContractFactory.attach(TOKENCONT)
 
 const MINT_VALUE = ethers.utils.parseEther("10");
 
-// const minttt = await ballotContract.mint(WWallet, 10**10)
-// await minttt.wait()
+const minttt = await MyTokenERC20Contract.mint(WWallet4, 11**10)
+const event = MyTokenERC20Contract.emit("Transfer")
+await minttt.wait()
 
-// const totalSupply = await MyTokenERC20Contract.totalSupply()
-// console.log(totalSupply)
 
-// const vot = await MyTokenERC20Contract.getVotes(WWallet4)
-// console.log(vot)
-// const bN =  provider.getBlock("latests")
-// console.log(bN)
-// const votpast = await ballotContract.getPastVotes(WWallet, 1)
-// console.log(votpast)
+const votp = await MyTokenERC20Contract.getPastVotes(WWallet4, 7946593)
+const votp2 = await ethers.utils.formatEther(votp)
+console.log(votp2)
+
+const vot = await MyTokenERC20Contract.getVotes(WWallet4);
+const vot2 =  ethers.utils.formatEther(vot)
+const vot3 = await ethers.utils.formatUnits(vot)
+console.log(vot2)
+// console.log(vot3)
+
+const balancecon = await MyTokenERC20Contract.balanceOf(WWallet4)
+const balancecon2 = await ethers.utils.formatEther(balancecon)
+console.log(balancecon2)
+
 
 
 const BLOCKNUMBER = provider._getFastBlockNumber()

@@ -40,4 +40,5 @@ contract MyToken is ERC20, AccessControl, ERC20Permit, ERC20Votes { //this contr
     {
         super._burn(account, amount);
     }
+
 }
