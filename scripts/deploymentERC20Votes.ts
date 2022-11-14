@@ -59,8 +59,8 @@ const BN = await BLOCKNUMBER
 console.log(`${BN}`)
 
 //delegate
-// const min = await MyTokenERC20Contract.delegate(WWallet4)
-// await min.wait();
+const min = await MyTokenERC20Contract.delegate(WWallet4)
+await min.wait();
 // const txhash = min.blockHash
 
 // console.log(txhash)

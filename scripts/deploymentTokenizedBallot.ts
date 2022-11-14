@@ -23,6 +23,8 @@ console.log(`this address has balance of ${balance}`)
 const BLOCKNUMBER = provider._getFastBlockNumber()
 const BN = await BLOCKNUMBER
 
+
+
 const ballotContractFactory = new TokenizedBallot__factory(signer);
 // const ballotContract = await ballotContractFactory.deploy(
 //   convertStringArrayToBytes32(PROPOSALS),
@@ -36,13 +38,18 @@ const ballotContract = ballotContractFactory.attach(TOKENCONT)
 
 const winnerName = await ballotContract.winnerName()
 console.log(ethers.utils.parseBytes32String(winnerName));
+console.log(`${winnerName}`);
 
 const pastVotes = await ballotContract.votingPower(WWallet)
 const pastVotes2 = await ballotContract.votingPower(WWallet4)
 
 console.log(`pastVotes wallet ${pastVotes}`)
 console.log(`pastVotes wallet 4 ${pastVotes2}`)
-const MINT_VALUE = ethers.utils.parseEther("10");
+
+const blo = await provider.blockNumber.toString()
+console.log(blo)
+// const blo2 = await provider()
+// const MINT_VALUE = ethers.utils.parseEther("10");
 
 
 
