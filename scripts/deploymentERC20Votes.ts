@@ -7,7 +7,7 @@ import { _toUtf8String } from "@ethersproject/strings/lib/utf8";
 dotenv.config()
 
 const TOKENCONT = "0x3a4a8459f38e131fa5071a3e0444e64313f7343e"
-// const TOKENCONT2 = "0x5b82aee78a1e7e02144e0782a1ab7f59e7a9ef6e"
+// const TOKENCONT2 = ""
 
 const WWallet = "0x6f6eb030334642D3D1527B3D1b05fb08C16852d5"
 const WWallet4 = "0x2924a6C59115299A5945cA1dF6D73ABA526C97bd"
@@ -18,7 +18,7 @@ const wallet = new ethers.Wallet(process.env.PRIVATE_KEY ??"");
 const signer = wallet.connect(provider);
 console.log(`${signer.address}`)
 const balance = await signer.getBalance();
-console.log(`this address has balance of ${balance}`)
+console.log(`this address has balance in ETH ${balance}`)
 
 
 const MyTokenERC20ContractFactory = new MyToken__factory(signer);
@@ -27,28 +27,42 @@ const MyTokenERC20ContractFactory = new MyToken__factory(signer);
 const MyTokenERC20Contract = await MyTokenERC20ContractFactory.attach(TOKENCONT);
 // await MyTokenERC20Contract.deployed()
 
-const MINT_VALUE = ethers.utils.parseEther("10");
+// const MINT_VALUE = ethers.utils.parseEther("10");
+
+
+
+
 
 // const minttt = await MyTokenERC20Contract.mint(WWallet, 11**10)
-// const event = MyTokenERC20Contract.emit("Transfer")
+// // const event = MyTokenERC20Contract.emit("Transfer")
 // await minttt.wait()
 
 
-const votp = await MyTokenERC20Contract.getPastVotes(WWallet4, 7946950)
+const votp4 = await MyTokenERC20Contract.getPastVotes(WWallet, 7952804)
+const votp24 = await ethers.utils.formatEther(votp4)
+console.log(`${votp24} past votes at block in wallet 2`)
+
+const votp = await MyTokenERC20Contract.getPastVotes(WWallet4, 7952804)
 const votp2 = await ethers.utils.formatEther(votp)
-console.log(`${votp2} past votes at block`)
+console.log(`${votp2} past votes at block in wallet 1`)
 
 const vot = await MyTokenERC20Contract.getVotes(WWallet4);
 const vot2 =  ethers.utils.formatEther(vot)
 // const vot3 = await ethers.utils.formatUnits(vot)
-console.log(`votes totals ${vot2}`)
+console.log(`votes totals Wallet 1 ${vot2}`)
 // console.log(vot3)
 
-const balancecon = await MyTokenERC20Contract.balanceOf(WWallet4)
-const balancecon2 = await ethers.utils.formatEther(balancecon)
+const votw4 = await MyTokenERC20Contract.getVotes(WWallet);
+const vot2w4 =  ethers.utils.formatEther(votw4)
+// const vot3 = await ethers.utils.formatUnits(vot)
+console.log(`votes totals in wallet 2 ${votw4}`)
+// console.log(vot3)
+
+const balanceW4 = await MyTokenERC20Contract.balanceOf(WWallet4)
+const balancecon2 = await ethers.utils.formatEther(balanceW4)
 console.log(`${balancecon2} balance of wallet owner`)
 
-const balanceco = await MyTokenERC20Contract.balanceOf(WWallet4)
+const balanceco = await MyTokenERC20Contract.balanceOf(WWallet)
 const balanceco2 = await ethers.utils.formatEther(balanceco)
 console.log(`${balanceco2} balance of wallet `)
 
@@ -56,12 +70,14 @@ console.log(`${balanceco2} balance of wallet `)
 
 const BLOCKNUMBER = provider._getFastBlockNumber()
 const BN = await BLOCKNUMBER
-console.log(`${BN}`)
+console.log(`${BN} Current Block Number `)
 
 //delegate
-const min = await MyTokenERC20Contract.delegate(WWallet4)
+const min = await await MyTokenERC20Contract.delegate(WWallet4)
+const min2 = min.hash
 await min.wait();
-// const txhash = min.blockHash
+console.log(`${min2} hash of delegation`)
+
 
 // console.log(txhash)
 
